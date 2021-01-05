@@ -12,5 +12,6 @@ module.exports = {
   },
   rules: {
     'import/prefer-default-export': 'off',
+    'eslint max-len': '["error", { "ignoreComments": true }]',
   },
 };
