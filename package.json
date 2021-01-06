@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "lint": "prettier --check . && eslint .",
+    "lint": "prettier --write . && eslint .",
     "lint:fix": "prettier --write . && eslint . --fix"
   },
   "repository": {
