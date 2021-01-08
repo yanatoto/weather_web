@@ -13,7 +13,7 @@ module.exports = {
     "import/prefer-default-export": "off",
     "max-len": [
       "error",
-      { code: 120, ignoreRegExpLiterals: true, ignoreComments: true },
+      { code: 1045, ignoreRegExpLiterals: true, ignoreComments: true },
     ],
     "no-console": "off",
     "no-alert": "off",
