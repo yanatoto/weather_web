@@ -1,3 +1,4 @@
 import { greet } from "./greet";
 
-greet(Number(prompt("Your age")));
+document.body.innerHTML = "<button>Click me</button>";
+greet(Number(prompt("Your age???")));
