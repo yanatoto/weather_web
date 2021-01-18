@@ -12,7 +12,7 @@
     "url": "git+https://github.com/yanatoto/weather_web.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Yana",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/yanatoto/weather_web/issues"
@@ -48,7 +48,8 @@
     "*.{js,css,md,html}": "prettier --write"
   },
   "dependencies": {
-    "core-js": "^3.8.2"
+    "@babel/polyfill": "^7.12.1",
+    "core-js": "^2.6.12"
   },
-  "description": ""
+  "description": "web"
 }

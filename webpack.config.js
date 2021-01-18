@@ -21,7 +21,8 @@ module.exports = {
                 "@babel/preset-env",
                 {
                   useBuiltIns: "entry",
-                  // caller.target will be the same as the target option from webpack
+                  corejs: "2.6.12",
+                  shippedProposals: false,
                   targets: { chrome: "58", ie: "11" },
                 },
               ],
