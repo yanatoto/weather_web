@@ -4,7 +4,7 @@ import Post from "./Post";
 // import csv from './assets/data.csv'
 // import WebpackLogo from './assets/webpack-logo.png'
 // import './babel.js'
-// import './style/style.css'
+import "./styles/styles.css";
 
 const post = new Post("Webpack Post Title");
 

@@ -6,10 +6,14 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "./dist"),
-    filename: "[name].[contenthash].js",
+    filename: "bundle.js",
   },
   module: {
     rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
@@ -37,5 +41,9 @@ module.exports = {
     compress: true,
     port: 5500,
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+  ],
 };
