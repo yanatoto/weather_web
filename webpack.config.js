@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require("path");
 
 module.exports = {
@@ -6,13 +7,17 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "./dist"),
-    filename: "bundle.js",
+    filename: "[name].[contenthash].js",
   },
   module: {
     rules: [
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|jpg|svg|gif)$/,
+        use: ["file-loader"],
       },
       {
         test: /\.js$/,
@@ -45,5 +50,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
+    new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
   ],
 };
