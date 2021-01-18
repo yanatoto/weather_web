@@ -20,6 +20,10 @@ module.exports = {
         use: ["file-loader"],
       },
       {
+        test: /\.(ttf|woff|woff2|eot)$/,
+        use: ["file-loader"],
+      },
+      {
         test: /\.js$/,
         exclude: /(node_modules)/,
         use: {
