@@ -1,12 +1,17 @@
-/* @import "roboto.css";
+@import "roboto.css";
 
 body {
   font-family: "Roboto", sans-serif;
 }
 
-.container {
-  padding-top: 2rem;
+.btn {
+  padding-top: 1rem;
   max-width: 1000px;
+  margin: 0 auto;
+}
+input {
+  padding-top: 1rem;
+  max-width: 100px;
   margin: 0 auto;
 }
 
@@ -14,11 +19,7 @@ h1 {
   text-align: center;
 }
 
-h2 {
-  color: rgb(255, 0, 119);
-}
-
-.logo {
+/* .logo {
   background-image: url("../assets/webpack-logo.png");
   background-size: cover;
   height: 200px;

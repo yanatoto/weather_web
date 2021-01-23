@@ -14,7 +14,7 @@ import "./styles/styles.css";
 
   async function getWeather(cityName) {
     const weather = fetch(
-      `https://api.openweathermap.org/data/2.5/weather?units=${cityName}&appid=8eda416857ac90170ef15cebf17e8fd1`
+      `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${cityName}&appid=8eda416857ac90170ef15cebf17e8fd1`
     );
     return (await weather).json();
   }
