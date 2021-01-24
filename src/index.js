@@ -1,5 +1,6 @@
 import "./styles/styles.css";
 import { getWeather, showWeather } from "./weather";
+import { getUserMap, renderMap } from "./map";
 
 // eslint-disable-next-line func-names
 (async function () {
@@ -23,18 +24,7 @@ import { getWeather, showWeather } from "./weather";
   // }
   // getUrlIcon();
 
-  function getUserMap(userCity) {
-    const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${userCity}&size=500x500&key=AIzaSyDANLeEnr2Wf05hG0wxHA0Ucqz5CeZF_Cw`;
-    return mapUrl;
-  }
-
   const userCity = await getUserLocation();
-
-  async function renderMap(el, result) {
-    // eslint-disable-next-line no-param-reassign
-    el.innerHTML = await result;
-  }
-
   const map = getUserMap(userCity);
 
   renderMap(
