@@ -1,5 +1,5 @@
 import "./styles/styles.css";
-import { getWeather, showWeather } from "./weather";
+import { getWeather, showWeather, updateWeather } from "./weather";
 import { getUserMap, renderMap } from "./map";
 
 // eslint-disable-next-line func-names
@@ -47,5 +47,6 @@ import { getUserMap, renderMap } from "./map";
 
     const userWeather = await getWeather(userCity);
     showWeather(weatherInfoEl, userWeather);
+    updateWeather(weatherInfoEl, userWeather);
   });
 })();
