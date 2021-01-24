@@ -5,10 +5,13 @@ import "./styles/styles.css";
   // Получаем указатели на нужные элементы
   const formEl = document.querySelector("form");
   const weatherInfoEl = document.querySelector("#weatherInfo");
+  // const listEl = document.querySelector("#list");
 
-  function showWeather(el, weatherInfo) {
+  async function showWeather(el, weatherInfo) {
     // eslint-disable-next-line no-param-reassign
-    el.innerHTML = JSON.stringify(weatherInfo, null, 2);
+    el.innerHTML = `Temperature °C in the selected: ${JSON.stringify(
+      weatherInfo
+    )}`;
   }
 
   async function getUserLocation() {
@@ -21,16 +24,25 @@ import "./styles/styles.css";
   async function getWeather(cityName) {
     const weather = fetch(
       `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${cityName}&appid=8eda416857ac90170ef15cebf17e8fd1`
-    );
-    return (await weather).json();
+    ).then((response) => response.json());
+    return weather;
   }
 
-  async function getUserMap(cityName) {
-    const url = `https://maps.googleapis.com/maps/api/staticmap?center=${cityName}=14&size=400x400&key=AIzaSyDANLeEnr2Wf05hG0wxHA0Ucqz5CeZF_Cw`;
-    const response = await fetch(url);
-    const map = await response.text();
-    return map;
+  function getUserMap(cityName) {
+    const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${cityName}=14&size=400x400&key=AIzaSyDANLeEnr2Wf05hG0wxHA0Ucqz5CeZF_Cw`;
+    return mapUrl;
   }
+
+  async function renderMap(el, result) {
+    // eslint-disable-next-line no-param-reassign
+    el.innerHTML = `City: ${await result}`;
+  }
+
+  const map = getUserMap();
+  renderMap(
+    document.querySelector(".img"),
+    (document.querySelector(".img").src = map)
+  );
 
   formEl.addEventListener("submit", async (ev) => {
     // чтобы не перезагружать страницу
@@ -48,5 +60,4 @@ import "./styles/styles.css";
   const userCity = await getUserLocation();
   const userWeather = await getWeather(userCity);
   showWeather(weatherInfoEl, userWeather);
-  getUserMap();
 })();
