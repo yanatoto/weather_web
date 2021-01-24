@@ -34,17 +34,19 @@ import "./styles/styles.css";
   // }
   // getUrlIcon();
 
-  function getUserMap(cityName) {
-    const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${cityName}&size=500x500&key=AIzaSyDANLeEnr2Wf05hG0wxHA0Ucqz5CeZF_Cw`;
+  function getUserMap(userCity) {
+    const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${userCity}&size=500x500&key=AIzaSyDANLeEnr2Wf05hG0wxHA0Ucqz5CeZF_Cw`;
     return mapUrl;
   }
 
+  const userCity = await getUserLocation();
+
   async function renderMap(el, result) {
     // eslint-disable-next-line no-param-reassign
-    el.innerHTML = `City: ${await result}`;
+    el.innerHTML = await result;
   }
 
-  const map = getUserMap();
+  const map = getUserMap(userCity);
 
   renderMap(
     document.querySelector(".img"),
@@ -64,7 +66,7 @@ import "./styles/styles.css";
     const weather = await getWeather(cityName);
     showWeather(weatherInfoEl, weather);
   });
-  const userCity = await getUserLocation();
+
   const userWeather = await getWeather(userCity);
   showWeather(weatherInfoEl, userWeather);
 })();
