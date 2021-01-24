@@ -1,4 +1,5 @@
 import "./styles/styles.css";
+import { getWeather, showWeather } from "./weather";
 
 // eslint-disable-next-line func-names
 (async function () {
@@ -7,23 +8,11 @@ import "./styles/styles.css";
   const weatherInfoEl = document.querySelector("#weatherInfo");
   // const listEl = document.querySelector("#list");
 
-  async function showWeather(el, weatherInfo) {
-    // eslint-disable-next-line no-param-reassign
-    el.innerHTML = JSON.stringify(weatherInfo, null, 2);
-  }
-
   async function getUserLocation() {
     const url = `https://get.geojs.io/v1/ip/geo.json`;
     const response = await fetch(url);
     const json = await response.json();
     return json.city;
-  }
-
-  async function getWeather(cityName) {
-    const weather = fetch(
-      `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${cityName}&appid=8eda416857ac90170ef15cebf17e8fd1`
-    ).then((response) => response.json());
-    return weather;
   }
 
   // async function getUrlIcon(cityName) {
@@ -65,8 +54,8 @@ import "./styles/styles.css";
 
     const weather = await getWeather(cityName);
     showWeather(weatherInfoEl, weather);
-  });
 
-  const userWeather = await getWeather(userCity);
-  showWeather(weatherInfoEl, userWeather);
+    const userWeather = await getWeather(userCity);
+    showWeather(weatherInfoEl, userWeather);
+  });
 })();
