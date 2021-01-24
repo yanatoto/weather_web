@@ -9,9 +9,7 @@ import "./styles/styles.css";
 
   async function showWeather(el, weatherInfo) {
     // eslint-disable-next-line no-param-reassign
-    el.innerHTML = `Temperature °C in the selected: ${JSON.stringify(
-      weatherInfo
-    )}`;
+    el.innerHTML = JSON.stringify(weatherInfo, null, 2);
   }
 
   async function getUserLocation() {
@@ -28,8 +26,16 @@ import "./styles/styles.css";
     return weather;
   }
 
+  // async function getUrlIcon(cityName) {
+  //   const iconName = await getWeather(cityName);
+  //   const icon = `<img src="https://openweathermap.org/img/wn/${iconName.icon}@2x.png">`;
+
+  //   return icon;
+  // }
+  // getUrlIcon();
+
   function getUserMap(cityName) {
-    const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${cityName}=14&size=400x400&key=AIzaSyDANLeEnr2Wf05hG0wxHA0Ucqz5CeZF_Cw`;
+    const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${cityName}&size=500x500&key=AIzaSyDANLeEnr2Wf05hG0wxHA0Ucqz5CeZF_Cw`;
     return mapUrl;
   }
 
@@ -39,6 +45,7 @@ import "./styles/styles.css";
   }
 
   const map = getUserMap();
+
   renderMap(
     document.querySelector(".img"),
     (document.querySelector(".img").src = map)
