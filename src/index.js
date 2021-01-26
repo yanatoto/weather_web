@@ -16,14 +16,6 @@ import { getUserMap, renderMap } from "./map";
     return json.city;
   }
 
-  // async function getUrlIcon(cityName) {
-  //   const iconName = await getWeather(cityName);
-  //   const icon = `<img src="https://openweathermap.org/img/wn/${iconName.icon}@2x.png">`;
-
-  //   return icon;
-  // }
-  // getUrlIcon();
-
   const userCity = await getUserLocation();
   const map = getUserMap(userCity);
 
@@ -47,6 +39,13 @@ import { getUserMap, renderMap } from "./map";
 
     const userWeather = await getWeather(userCity);
     showWeather(weatherInfoEl, userWeather);
-    updateWeather(weatherInfoEl, userWeather);
+    updateWeather(weatherInfoEl, weather);
+
+    const userMap = getUserMap(cityName);
+
+    renderMap(
+      document.querySelector(".img"),
+      (document.querySelector(".img").src = userMap)
+    );
   });
 })();
