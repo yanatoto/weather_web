@@ -1,5 +1,11 @@
+/* eslint-disable no-param-reassign */
 import "./styles/styles.css";
-import { getWeather, showWeather, updateWeather } from "./weather";
+import {
+  getWeather,
+  drawWeather,
+  updateWeather,
+  getUserLocation,
+} from "./weather";
 import { getUserMap, renderMap } from "./map";
 
 // eslint-disable-next-line func-names
@@ -7,17 +13,16 @@ import { getUserMap, renderMap } from "./map";
   // Получаем указатели на нужные элементы
   const formEl = document.querySelector("form");
   const weatherInfoEl = document.querySelector("#weatherInfo");
-  // const listEl = document.querySelector("#list");
-
-  async function getUserLocation() {
-    const url = `https://get.geojs.io/v1/ip/geo.json`;
-    const response = await fetch(url);
-    const json = await response.json();
-    return json.city;
-  }
 
   const userCity = await getUserLocation();
+  const userWeather = await getWeather(userCity);
+
+  console.log(userWeather);
+  // updateWeather(weatherInfoEl, userWeather);
+
   const map = getUserMap(userCity);
+
+  drawWeather(weatherInfoEl, userWeather);
 
   renderMap(
     document.querySelector(".img"),
@@ -25,27 +30,23 @@ import { getUserMap, renderMap } from "./map";
   );
 
   formEl.addEventListener("submit", async (ev) => {
-    // чтобы не перезагружать страницу
     ev.preventDefault();
 
-    // читаем значение из формы
     const formElement = ev.target;
     const inputEl = formElement.querySelector("input");
-    const cityName = inputEl.value;
+    const city = inputEl.value;
     inputEl.value = "";
 
-    const weather = await getWeather(cityName);
-    showWeather(weatherInfoEl, weather);
+    const weather = await getWeather(city);
 
-    const userWeather = await getWeather(userCity);
-    showWeather(weatherInfoEl, userWeather);
+    const userMap = getUserMap(city);
+
     updateWeather(weatherInfoEl, weather);
-
-    const userMap = getUserMap(cityName);
 
     renderMap(
       document.querySelector(".img"),
       (document.querySelector(".img").src = userMap)
     );
   });
+  updateWeather(weatherInfoEl, userWeather);
 })();
