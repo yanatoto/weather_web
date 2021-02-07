@@ -6,7 +6,7 @@ import {
   getUserLocation,
 } from "./weather";
 import { getUserMap, drawMap } from "./map";
-import { readList, saveList, drawList } from "./list";
+import { readList, saveList, drawList, updateList } from "./list";
 
 (async function () {
   // Получаем указатели на нужные элементы
@@ -60,10 +60,7 @@ import { readList, saveList, drawList } from "./list";
 
     // сохраняем список
     saveList(cities);
-
-    // const listItems = document.querySelectorAll("li");
-
-    // console.log(listItems);
+    updateList(listEl, cities);
   });
 
   updateWeather(weatherInfoEl, userWeather);
