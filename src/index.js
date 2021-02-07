@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import "./styles/styles.css";
 import {
   getWeather,
@@ -6,25 +5,25 @@ import {
   updateWeather,
   getUserLocation,
 } from "./weather";
-import { getUserMap, renderMap } from "./map";
+import { getUserMap, drawMap } from "./map";
+import { readList, saveList, drawList } from "./list";
 
-// eslint-disable-next-line func-names
 (async function () {
   // Получаем указатели на нужные элементы
   const formEl = document.querySelector("form");
   const weatherInfoEl = document.querySelector("#weatherInfo");
+  const listEl = document.querySelector("#list");
 
   const userCity = await getUserLocation();
   const userWeather = await getWeather(userCity);
-
-  console.log(userWeather);
-  // updateWeather(weatherInfoEl, userWeather);
+  // Читаем список при старте
+  const cities = await readList();
 
   const map = getUserMap(userCity);
 
   drawWeather(weatherInfoEl, userWeather);
 
-  renderMap(
+  drawMap(
     document.querySelector(".img"),
     (document.querySelector(".img").src = map)
   );
@@ -33,20 +32,31 @@ import { getUserMap, renderMap } from "./map";
     ev.preventDefault();
 
     const formElement = ev.target;
-    const inputEl = formElement.querySelector("input");
-    const city = inputEl.value;
-    inputEl.value = "";
+    const input = formElement.querySelector("input");
+    const city = input.value;
+    input.value = "";
 
     const weather = await getWeather(city);
-
     const userMap = getUserMap(city);
 
     updateWeather(weatherInfoEl, weather);
+    // и отрисовываем список
+    drawList(listEl, cities);
 
-    renderMap(
+    // добавляем элемент в список
+    cities.push(city);
+
+    // обновляем список
+    drawList(listEl, cities);
+
+    // сохраняем список
+    saveList(cities);
+
+    drawMap(
       document.querySelector(".img"),
       (document.querySelector(".img").src = userMap)
     );
   });
+
   updateWeather(weatherInfoEl, userWeather);
 })();

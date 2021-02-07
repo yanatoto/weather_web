@@ -3,7 +3,7 @@ export function getUserMap(userCity) {
   return mapUrl;
 }
 
-export async function renderMap(el) {
+export async function drawMap(el) {
   // eslint-disable-next-line no-param-reassign
   const img = document.createElement("img");
   el.appendChild(img);
