@@ -11,3 +11,9 @@ export function saveList(cities) {
 export function drawList(el, cities) {
   el.innerHTML = `<ol>${cities.map((el) => `<li>${el}</li>`).join("")}</ol>`;
 }
+
+// export function updateList () {
+//   if (document.querySelectorAll("li").length > 10) {
+//     document.querySelectorAll("li")[0].remove();
+//   }
+// }

@@ -39,7 +39,16 @@ import { readList, saveList, drawList } from "./list";
     const weather = await getWeather(city);
     const userMap = getUserMap(city);
 
+    drawMap(
+      document.querySelector(".img"),
+      (document.querySelector(".img").src = userMap)
+    );
+
     updateWeather(weatherInfoEl, weather);
+
+    while (cities.length > 9) {
+      cities.shift();
+    }
     // и отрисовываем список
     drawList(listEl, cities);
 
@@ -52,10 +61,9 @@ import { readList, saveList, drawList } from "./list";
     // сохраняем список
     saveList(cities);
 
-    drawMap(
-      document.querySelector(".img"),
-      (document.querySelector(".img").src = userMap)
-    );
+    // const listItems = document.querySelectorAll("li");
+
+    // console.log(listItems);
   });
 
   updateWeather(weatherInfoEl, userWeather);
