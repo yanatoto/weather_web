@@ -10,6 +10,9 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
+    "no-shadow": "off",
+    "no-param-reassign": ["error", { props: false }],
+    "func-names": "off",
     "import/prefer-default-export": "off",
     "max-len": [
       "error",

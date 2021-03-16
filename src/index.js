@@ -1,52 +1,67 @@
 import "./styles/styles.css";
-import { getWeather, showWeather, updateWeather } from "./weather";
-import { getUserMap, renderMap } from "./map";
+import {
+  getWeather,
+  drawWeather,
+  updateWeather,
+  getUserLocation,
+} from "./weather";
+import { getUserMap, drawMap } from "./map";
+import { readList, saveList, drawList, updateList } from "./list";
 
-// eslint-disable-next-line func-names
 (async function () {
   // Получаем указатели на нужные элементы
   const formEl = document.querySelector("form");
   const weatherInfoEl = document.querySelector("#weatherInfo");
-  // const listEl = document.querySelector("#list");
-
-  async function getUserLocation() {
-    const url = `https://get.geojs.io/v1/ip/geo.json`;
-    const response = await fetch(url);
-    const json = await response.json();
-    return json.city;
-  }
-
-  // async function getUrlIcon(cityName) {
-  //   const iconName = await getWeather(cityName);
-  //   const icon = `<img src="https://openweathermap.org/img/wn/${iconName.icon}@2x.png">`;
-
-  //   return icon;
-  // }
-  // getUrlIcon();
+  const listEl = document.querySelector("#list");
 
   const userCity = await getUserLocation();
+  const userWeather = await getWeather(userCity);
+  // Читаем список при старте
+  const cities = await readList();
+
   const map = getUserMap(userCity);
 
-  renderMap(
+  drawWeather(weatherInfoEl, userWeather);
+
+  drawMap(
     document.querySelector(".img"),
     (document.querySelector(".img").src = map)
   );
 
   formEl.addEventListener("submit", async (ev) => {
-    // чтобы не перезагружать страницу
     ev.preventDefault();
 
-    // читаем значение из формы
     const formElement = ev.target;
-    const inputEl = formElement.querySelector("input");
-    const cityName = inputEl.value;
-    inputEl.value = "";
+    const input = formElement.querySelector("input");
+    const city = input.value;
+    input.value = "";
 
-    const weather = await getWeather(cityName);
-    showWeather(weatherInfoEl, weather);
+    const weather = await getWeather(city);
+    const userMap = getUserMap(city);
 
-    const userWeather = await getWeather(userCity);
-    showWeather(weatherInfoEl, userWeather);
-    updateWeather(weatherInfoEl, userWeather);
+    drawMap(
+      document.querySelector(".img"),
+      (document.querySelector(".img").src = userMap)
+    );
+
+    updateWeather(weatherInfoEl, weather);
+
+    while (cities.length > 9) {
+      cities.shift();
+    }
+    // и отрисовываем список
+    drawList(listEl, cities);
+
+    // добавляем элемент в список
+    cities.push(city);
+
+    // обновляем список
+    drawList(listEl, cities);
+
+    // сохраняем список
+    saveList(cities);
+    updateList(listEl, cities);
   });
+
+  updateWeather(weatherInfoEl, userWeather);
 })();
