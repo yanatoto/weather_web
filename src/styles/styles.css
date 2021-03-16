@@ -1,0 +1,28 @@
+@import "roboto.css";
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.btn {
+  padding-top: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+input {
+  padding-top: 1rem;
+  max-width: 100px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+/* .logo {
+  background-image: url("../assets/webpack-logo.png");
+  background-size: cover;
+  height: 200px;
+  width: 200px;
+  margin: 0 auto;
+} */
